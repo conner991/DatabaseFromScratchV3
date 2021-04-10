@@ -13,7 +13,11 @@ NOTES:             This class holds all of the necessary information pertaining 
 MODIFICATION HISTORY:
 Author             Date               Version
 ---------------    ----------         --------------
-Conner Fissell     03-28-2020         Final Version for Project 2
+Conner Fissell     04-07-2021         Initial Set up
+Conner Fissell     04-07-2021         
+Conner Fissell     04-07-2021         
+Conner Fissell     04-07-2021         
+Conner Fissell     04-07-2021
 ----------------------------------------------------------------------------- */
 #ifndef __TABLE_H__
 #define __TABLE_H__

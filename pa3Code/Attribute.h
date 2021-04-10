@@ -10,7 +10,11 @@ NOTES:             This class holds all of the relevant information pertaining t
 MODIFICATION HISTORY:
 Author             Date               Version
 ---------------    ----------         --------------
-Conner Fissell     03-28-2020         Final Version for Project 2
+Conner Fissell     04-07-2021         Initial Set up
+Conner Fissell     04-07-2021         
+Conner Fissell     04-07-2021         
+Conner Fissell     04-07-2021         
+Conner Fissell     04-07-2021
 ----------------------------------------------------------------------------- */
 #ifndef __ATTRIBUTE_H__
 #define __ATTRIBUTE_H__
