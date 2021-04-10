@@ -14,8 +14,8 @@ MODIFICATION HISTORY:
 Author             Date               Version
 ---------------    ----------         --------------
 Conner Fissell     04-07-2021         Initial Set up
-Conner Fissell     04-07-2021         
-Conner Fissell     04-07-2021         
+Conner Fissell     04-09-2021         Updated Parser
+Conner Fissell     04-10-2021         Worked on Selects
 Conner Fissell     04-07-2021         
 Conner Fissell     04-07-2021
 ----------------------------------------------------------------------------- */
@@ -27,7 +27,7 @@ Conner Fissell     04-07-2021
 
 class Table : public Attribute {
      private:
-          std::string tableName;
+          std::string tableName, alias;
           int numOfAttributes;
           std::vector<Attribute> attributes; 
 
@@ -154,6 +154,14 @@ class Table : public Attribute {
                     attributes[i].addValue(valVector[i]);
                }
 
+          }
+
+          void setAliasName(std::string a) {
+               alias = a;
+          }
+
+          std::string getAliasName() {
+               return alias;
           }
 
           bool attValueExits(std::string attName, std::string val, int &valueCount) {

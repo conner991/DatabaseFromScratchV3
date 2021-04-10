@@ -1192,7 +1192,7 @@ void select(std::vector<std::string> &wordVector, std::vector<Database> &databas
 {
      bool used = false, inDB = false, inTable = false;
      int tableCount = 0, oldSize, newSize, valueCount;
-     std::string tableName, selectAtt1, selectAtt2, whereAtt, operater, compareValue;
+     std::string tableName, selectAtt1, selectAtt2, whereAtt, operater, compareValue, alias;
      std::vector<std::string> tableAliases;
 
 
@@ -1212,9 +1212,85 @@ void select(std::vector<std::string> &wordVector, std::vector<Database> &databas
                // If there are multiple tables that have been created
                if (databaseVector[i].tables.size() > 1) {
 
-                    // Collect our tables
-                    displayWholeTable("Employee", databaseVector);
-                    displayWholeTable("Sales", databaseVector);
+                    // Collect our tables aliases by going through all of the words and 
+                    // finding our table names and then assigning aliases to them
+                    for (int j = 0; j < wordVector.size(); j++) {
+
+                         if (wordVector[j] == "Employee") {
+
+                              // Find alias name
+                              alias = wordVector[j + 1];
+                              // Add alias name to corresponding table
+                              databaseVector[i].tables[0].setAliasName(alias);
+                              // Add alias name to vector
+                              tableAliases.push_back(alias);
+
+                         }
+
+                         else if (wordVector[j] == "Sales") {
+
+                              // Find alias name
+                              alias = wordVector[j + 1];
+                              // Add alias name to corresponding table
+                              databaseVector[i].tables[1].setAliasName(alias);
+                              // Add alias name to vector
+                              tableAliases.push_back(alias);
+
+                         }
+
+                    }
+ 
+                    // Figure out what types of Select statements we have here
+                    for (int j = 0; j < wordVector.size(); j++) {
+                         
+                         // A non-join select statement 
+                         if (wordVector[j] == "where") {
+
+                              if (wordVector[k].front() == "E" && wordVector[k].size() > 1) {
+                                   
+                              }
+                              
+                              
+                              if (operater == "!=") {
+                                        
+                                   // If the selection doesn't happen 
+                                   if (!databaseVector[i].tables[j].compareSelect(selectAtt1, selectAtt2, whereAtt, operater, compareValue)) {
+
+                                        std::cout << "Selection failed.\n";
+
+                                   }
+
+                              }
+
+                                        
+                                        
+                                        
+
+
+
+
+                         }
+                         
+                         // A join select statement 
+                         else if (wordVector[j] == "join") {
+
+                              // This is a inner join statement 
+                              if (wordVector[5] == "inner") {
+                              
+                              }
+
+                              // This is a left outer join statement
+                              else if (wordVector[5] == "left") {
+                              
+                              }
+                              
+                         }
+
+                         
+                    
+                    }
+
+
 
 
                }
@@ -1232,6 +1308,7 @@ void select(std::vector<std::string> &wordVector, std::vector<Database> &databas
 
                               inDB = true;
 
+                              // For selecting picked individual attributes from ONE table
                               if (wordVector[3] == "from" && wordVector[5] == "where") {
 
                                    // Now to get our first attribute
