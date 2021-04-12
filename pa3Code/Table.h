@@ -110,8 +110,17 @@ class Table : public Attribute {
                     std::cout << " | ";
                }
 
-               std::cout << "\n";
+               //std::cout << "\n";
                
+          }
+
+          void displayRow(int location) {
+
+               for (int i = 0; i < getNumOfAttributes(); i++) {
+
+                    attributes[i].displayValue(location);
+               }
+
           }
 
           void displayAttributesAndValues() {
@@ -162,6 +171,28 @@ class Table : public Attribute {
 
           std::string getAliasName() {
                return alias;
+          }
+
+          std::vector<std::string> getAttValues(std::string att, std::vector<std::string> &valVector) {
+
+               std::string temp;
+
+               // Grab all the values from a specific attribute
+               for (int i = 0; i < attributes.size(); i++) {
+                    
+                    if (attributes[i].getName() == att) {
+
+                         // Load up valVector with attributes[i]s values
+                         for (int j = 0; j < attributes[i].getNumOfValues(); j++) {
+                              temp = attributes[i].getValue(j);
+                              valVector.push_back(temp);
+                         }
+                    }
+                    
+               }
+
+               return valVector;
+
           }
 
           bool attValueExits(std::string attName, std::string val, int &valueCount) {
@@ -247,7 +278,7 @@ class Table : public Attribute {
 
           }
 
-          bool compareSelect(std::string selectAtt1, std::string selectAtt2, std::string whereAtt, std::string operater, std::string compareValue) {
+          bool compareSelectOne(std::string selectAtt1, std::string selectAtt2, std::string whereAtt, std::string operater, std::string compareValue) {
           
                bool selected1 = false, selected2 = false;
                std::vector<int> valueIndexes;

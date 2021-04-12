@@ -1191,9 +1191,9 @@ NOTES:
 void select(std::vector<std::string> &wordVector, std::vector<Database> &databaseVector) 
 {
      bool used = false, inDB = false, inTable = false;
-     int tableCount = 0, oldSize, newSize, valueCount;
+     int tableCount = 0, oldSize, newSize, valueCount, combo;
      std::string tableName, selectAtt1, selectAtt2, whereAtt, operater, compareValue, alias;
-     std::vector<std::string> tableAliases;
+     std::vector<std::string> tableAliases, attValVector1, attValVector2;
 
 
      // Check for a database that's in use
@@ -1220,7 +1220,7 @@ void select(std::vector<std::string> &wordVector, std::vector<Database> &databas
 
                               // Find alias name
                               alias = wordVector[j + 1];
-                              // Add alias name to corresponding table
+                              // Add alias name to corresponding table (Employee)
                               databaseVector[i].tables[0].setAliasName(alias);
                               // Add alias name to vector
                               tableAliases.push_back(alias);
@@ -1231,7 +1231,7 @@ void select(std::vector<std::string> &wordVector, std::vector<Database> &databas
 
                               // Find alias name
                               alias = wordVector[j + 1];
-                              // Add alias name to corresponding table
+                              // Add alias name to corresponding table (Sales)
                               databaseVector[i].tables[1].setAliasName(alias);
                               // Add alias name to vector
                               tableAliases.push_back(alias);
@@ -1243,44 +1243,193 @@ void select(std::vector<std::string> &wordVector, std::vector<Database> &databas
                     // Figure out what types of Select statements we have here
                     for (int j = 0; j < wordVector.size(); j++) {
                          
-                         // A non-join select statement 
+                         // A join using "where"
                          if (wordVector[j] == "where") {
 
-                              if (wordVector[k].front() == "E" && wordVector[k].size() > 1) {
-                                   
-                              }
+                              // Grab comparison operator
+                              operater = wordVector[9];
                               
                               
-                              if (operater == "!=") {
-                                        
-                                   // If the selection doesn't happen 
-                                   if (!databaseVector[i].tables[j].compareSelect(selectAtt1, selectAtt2, whereAtt, operater, compareValue)) {
+                              if (operater == "=") {   
 
-                                        std::cout << "Selection failed.\n";
+                                   size_t found1= wordVector[8].find(".id");
+                                   size_t found2= wordVector[10].find(".employeeID");
+
+
+                                   // If the two different attributes from two different tables are present
+                                   if (found1 != std::string::npos && found2 != std::string::npos) {
+
+                                        // Grab the values from both attributes and store them in two vectors
+                                        databaseVector[i].tables[0].getAttValues("id", attValVector1);
+                                        databaseVector[i].tables[1].getAttValues("employeeID", attValVector2);
+
+                                        
+                                        //combo = attValVector1.size() * attValVector2.size();
+
+                                        // Print out the attributes
+                                        databaseVector[i].tables[0].displayAttributes();
+                                        databaseVector[i].tables[1].displayAttributes();
+
+                                        std::cout << "\n";
+                                        
+                                        // Now we need to compare the values and print out the ones that match
+                                        for (int k = 0; k < attValVector1.size(); k++) {
+
+                                             for (int l = 0; l < attValVector2.size(); l++) {
+
+                                                  if (attValVector1[k] == attValVector2[l]) {
+                                                       
+                                                       databaseVector[i].tables[0].displayRow(k);
+                                                       databaseVector[i].tables[1].displayRow(l);
+
+                                                       std::cout << "\n";
+
+                                                  }
+
+                                             }
+
+                         
+
+                                        }
 
                                    }
 
+                                   else {
+                                        std::cout << "One or more attributes not recognized.\n";
+                                   }
+
                               }
-
-                                        
-                                        
-                                        
-
 
 
 
                          }
                          
-                         // A join select statement 
-                         else if (wordVector[j] == "join") {
+                         // A join using "on"
+                         else if (wordVector[j] == "on") {
 
                               // This is a inner join statement 
                               if (wordVector[5] == "inner") {
+
+                                   // Grab comparison operator
+                                   operater = wordVector[11];
+                              
+                              
+                                   if (operater == "=") {   
+
+                                        size_t found1= wordVector[10].find(".id");
+                                        size_t found2= wordVector[12].find(".employeeID");
+
+
+                                        // If the two different attributes from two different tables are present
+                                        if (found1 != std::string::npos && found2 != std::string::npos) {
+
+                                             // Grab the values from both attributes and store them in two vectors
+                                             databaseVector[i].tables[0].getAttValues("id", attValVector1);
+                                             databaseVector[i].tables[1].getAttValues("employeeID", attValVector2);
+
+                                             
+                                             //combo = attValVector1.size() * attValVector2.size();
+
+                                             // Print out the attributes
+                                             databaseVector[i].tables[0].displayAttributes();
+                                             databaseVector[i].tables[1].displayAttributes();
+
+                                             std::cout << "\n";
+                                             
+                                             // Now we need to compare the values and print out the ones that match
+                                             for (int k = 0; k < attValVector1.size(); k++) {
+
+                                                  for (int l = 0; l < attValVector2.size(); l++) {
+
+                                                       if (attValVector1[k] == attValVector2[l]) {
+                                                            
+                                                            databaseVector[i].tables[0].displayRow(k);
+                                                            databaseVector[i].tables[1].displayRow(l);
+
+                                                            std::cout << "\n";
+
+                                                       }
+
+                                                  }
+
+                              
+
+                                             }
+
+                                        }
+
+                                        else {
+                                             std::cout << "One or more attributes not recognized.\n";
+                                        }
+
+                                   }
                               
                               }
-
+                              
+                              
                               // This is a left outer join statement
                               else if (wordVector[5] == "left") {
+
+                                   // Grab comparison operator
+                                   operater = wordVector[12];
+                              
+                                   if (operater == "=") {   
+
+                                        size_t found1= wordVector[11].find(".id");
+                                        size_t found2= wordVector[13].find(".employeeID");
+
+
+                                        // If the two different attributes from two different tables are present
+                                        if (found1 != std::string::npos && found2 != std::string::npos) {
+
+                                             // Grab the values from both attributes and store them in two vectors
+                                             databaseVector[i].tables[0].getAttValues("id", attValVector1);
+                                             databaseVector[i].tables[1].getAttValues("employeeID", attValVector2);
+
+                                             
+                                             //combo = attValVector1.size() * attValVector2.size();
+
+                                             // Print out the attributes
+                                             databaseVector[i].tables[0].displayAttributes();
+                                             databaseVector[i].tables[1].displayAttributes();
+
+                                             std::cout << "\n";
+                              
+                                             
+                                             // Now we need to compare the values and print out the ones that match
+                                             for (int k = 0; k < attValVector1.size(); k++) {
+
+                                                  for (int l = 0; l < attValVector2.size(); l++) {
+
+                                                       if (attValVector1[k] == attValVector2[l]) {
+
+                                                            databaseVector[i].tables[0].displayRow(k);
+                                                            databaseVector[i].tables[1].displayRow(l);
+
+                                                            std::cout << "\n";
+
+                                                       }
+                                                  
+                                                  }
+                                             
+                                             }
+                              
+
+                                             databaseVector[i].tables[0].displayRow(2);
+                                             std::cout << " | ";
+                                             std::cout << "\n";
+
+                                        }
+
+                                        else {
+                                             std::cout << "One or more attributes not recognized.\n";
+                                        }
+
+                              
+
+                                   
+                                   }
+
                               
                               }
                               
@@ -1340,7 +1489,7 @@ void select(std::vector<std::string> &wordVector, std::vector<Database> &databas
                                         if (operater == "!=") {
                                         
                                              // If the selection doesn't happen 
-                                             if (!databaseVector[i].tables[j].compareSelect(selectAtt1, selectAtt2, whereAtt, operater, compareValue)) {
+                                             if (!databaseVector[i].tables[j].compareSelectOne(selectAtt1, selectAtt2, whereAtt, operater, compareValue)) {
 
                                                   std::cout << "Selection failed.\n";
 
@@ -1349,10 +1498,6 @@ void select(std::vector<std::string> &wordVector, std::vector<Database> &databas
                                         
                                         
                                         }
-
-
-
-
 
 
                                    }
