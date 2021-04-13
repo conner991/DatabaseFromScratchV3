@@ -11,10 +11,10 @@ MODIFICATION HISTORY:
 Author             Date               Version
 ---------------    ----------         --------------
 Conner Fissell     04-07-2021         Initial Set up
-Conner Fissell     04-07-2021         
-Conner Fissell     04-07-2021         
-Conner Fissell     04-07-2021         
-Conner Fissell     04-07-2021
+Conner Fissell     04-09-2021         Updated Parser
+Conner Fissell     04-10-2021         Worked on Selects
+Conner Fissell     04-11-2021         Finished Selects
+Conner Fissell     04-12-2021         Turned in project
 ----------------------------------------------------------------------------- */
 #ifndef __ATTRIBUTE_H__
 #define __ATTRIBUTE_H__
@@ -45,33 +45,76 @@ class Attribute {
      public:
           Attribute() {};
           ~Attribute() {};
+
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          Attribute()
+          DESCRIPTION:       Parameterized Constructor
+          RETURNS:           None
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           Attribute(std::string name, std::string type) {
                attributeName = name;
                attributeType = type;
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          createAttribute()
+          DESCRIPTION:       Creates a new attribute by naming it and defining its type
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void createAttribute(std::string name, std::string type) {
                attributeName = name;
                attributeType = type;
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          displayAttribute()
+          DESCRIPTION:       Prints one attribute to the screen
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void displayAttribute() {
                std::cout << attributeName << " " << attributeType;
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          getName()
+          DESCRIPTION:       Returns an attributes name
+          RETURNS:           string
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           std::string getName() {
                return attributeName;
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          getNumOfValues()
+          DESCRIPTION:       Returns the amount of values an attribute holds
+          RETURNS:           int
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           int getNumOfValues() {
                numOfValues = values.size();
                return numOfValues; 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          addValue()
+          DESCRIPTION:       Pushes a passed string into the values vector
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void addValue(std::string val) {
                values.push_back(val);
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          deleteValue()
+          DESCRIPTION:       Removes a value from the values vector
+          RETURNS:           bool
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           bool deleteValue(std::vector<int> &valueIndexes) {
 
                bool deleted = false;
@@ -105,12 +148,24 @@ class Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          displayValue()
+          DESCRIPTION:       Prints a value to the screen
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void displayValue(int i){
 
                std::cout << values[i] << " | ";
                    
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          valuesExist()
+          DESCRIPTION:       Determines if a value is in the values vector
+          RETURNS:           bool
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           bool valuesExist(std::string val, int &valueCount) {
 
                bool valExists = false; 
@@ -127,10 +182,23 @@ class Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          getValue()
+          DESCRIPTION:       Returns a value at the passed in position i
+          RETURNS:           string
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           std::string getValue(int i) {
                return values[i];
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          getValueIndexes()
+          DESCRIPTION:       Pushes values that correspond to specific value positions in the 
+                              values vector
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void getValueIndexes(std::string val, std::vector<int> &valueIndexes) {
 
                for (int i = 0; i < values.size(); i++) {
@@ -144,6 +212,12 @@ class Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          getNumOfDuplicates()
+          DESCRIPTION:       Returns the amount of times that a value is in the values vector
+          RETURNS:           int
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           int getNumOfDuplicates(std::string value) {
 
                int count = 0;
@@ -161,6 +235,12 @@ class Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          updateValue()
+          DESCRIPTION:       Changes a value to a new passed in value
+          RETURNS:           bool
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           bool updateValue(std::string oldValue, std::string newValue) {
 
                bool success = false;
@@ -179,6 +259,12 @@ class Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          updateMultipleValues()
+          DESCRIPTION:       Updates multiple values in the values vector
+          RETURNS:           bool
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           bool updateMultipleValues(Attribute whereAtt, std::string newValue, std::string oldValue) {
 
                bool success = false;

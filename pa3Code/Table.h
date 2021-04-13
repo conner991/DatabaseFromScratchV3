@@ -16,8 +16,8 @@ Author             Date               Version
 Conner Fissell     04-07-2021         Initial Set up
 Conner Fissell     04-09-2021         Updated Parser
 Conner Fissell     04-10-2021         Worked on Selects
-Conner Fissell     04-07-2021         
-Conner Fissell     04-07-2021
+Conner Fissell     04-11-2021         Finished Selects
+Conner Fissell     04-12-2021         Turned in project
 ----------------------------------------------------------------------------- */
 #ifndef __TABLE_H__
 #define __TABLE_H__
@@ -36,14 +36,32 @@ class Table : public Attribute {
           Table() {};
           ~Table() {};
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          Table()
+          DESCRIPTION:       Parameterized constructor
+          RETURNS:           None
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           Table(std::string name) {
                tableName = name;
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          addAttribute()
+          DESCRIPTION:       Pushes an attribute to the attributes vector
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void addAttribute(Attribute a) {
                attributes.push_back(a);
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          getNumOfAttributes()
+          DESCRIPTION:       Returns the number of attributes in the table 
+          RETURNS:           int
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           int getNumOfAttributes() {
                
                numOfAttributes = attributes.size();
@@ -51,6 +69,12 @@ class Table : public Attribute {
                return numOfAttributes;
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          getAttribute()
+          DESCRIPTION:       Returns the attribute name that gets passed in
+          RETURNS:           string
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           std::string getAttribute(std::string attName) {
 
                // Cycle through vector of attributes
@@ -62,6 +86,12 @@ class Table : public Attribute {
                }
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          attInTable()
+          DESCRIPTION:       Determines if an attribute exists in the table 
+          RETURNS:           bool
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           bool attInTable(std::string attName) {
 
                bool inTable = false;
@@ -82,6 +112,12 @@ class Table : public Attribute {
                return inTable;
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          removeAttribute()
+          DESCRIPTION:       Removes an attribute from the table
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void removeAttribute(Attribute a) {
                
                Attribute tempAtt;
@@ -98,10 +134,22 @@ class Table : public Attribute {
                }
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          displayTableName()
+          DESCRIPTION:       Prints the tables name to the screen
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void displayTableName() {
                std::cout << "Table name is: " << tableName << "\n";
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          displayAttributes()
+          DESCRIPTION:       Prints all of the attributes in the table to the screen
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void displayAttributes() {
 
                for (int i = 0; i < attributes.size(); i++) {
@@ -112,8 +160,15 @@ class Table : public Attribute {
 
                //std::cout << "\n";
                
-          }
+          }    
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          displayRow()
+          DESCRIPTION:       Calls the displayValue attribute memeber function repeatedly for 
+                              all the attributes in the table. Prints the row at location
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void displayRow(int location) {
 
                for (int i = 0; i < getNumOfAttributes(); i++) {
@@ -123,6 +178,13 @@ class Table : public Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          displayAttributesAndValues()
+          DESCRIPTION:       Prints out all of the attrbutes and corresponding values to the
+                              screen
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void displayAttributesAndValues() {
 
                // Print out attributes
@@ -147,14 +209,32 @@ class Table : public Attribute {
                
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          getTableName()
+          DESCRIPTION:       Returns the name of the table
+          RETURNS:           string
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           std::string getTableName() {
                return tableName;
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          clearTable()
+          DESCRIPTION:       Deletes all of the attributes in the table
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void clearTable() {
                attributes.clear();
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          addValues()
+          DESCRIPTION:       Adds the values in the valVector to the arributes
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void addValues(std::vector<std::string> valVector) {
 
                // Here we add each value in valVector to it's corresponding attribute object
@@ -165,14 +245,32 @@ class Table : public Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          setAliasName()
+          DESCRIPTION:       Sets the alias name for the table
+          RETURNS:           void
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           void setAliasName(std::string a) {
                alias = a;
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          getAliasName()
+          DESCRIPTION:       Returns the alias name
+          RETURNS:           string
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           std::string getAliasName() {
                return alias;
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          getAttValues()
+          DESCRIPTION:       Returns a vector of values in an attribute
+          RETURNS:           vector<string>
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           std::vector<std::string> getAttValues(std::string att, std::vector<std::string> &valVector) {
 
                std::string temp;
@@ -195,6 +293,12 @@ class Table : public Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          attValuesExits()
+          DESCRIPTION:       Determines whether an attribute and its values exit in the table
+          RETURNS:           bool
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           bool attValueExits(std::string attName, std::string val, int &valueCount) {
 
                bool inAtt = false;
@@ -228,6 +332,13 @@ class Table : public Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          compareDelete()
+          DESCRIPTION:       Compares values in the attribute and deletes the ones that satisfy
+                              the comparison condition 
+          RETURNS:           bool
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           bool compareDelete(std::string attName, std::string value, std::string operater, int &valueCount) {
 
                bool comparable = false;
@@ -246,7 +357,6 @@ class Table : public Attribute {
 
                                    // First convert our strings to floats so we can compare
                                    fValue1 = std::stof(value);
-
                                    fValue2 = std::stof(attributes[i].getValue(j));
 
 
@@ -278,6 +388,13 @@ class Table : public Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          compareSelectOne()
+          DESCRIPTION:       Compares different values between attributes for one table and
+                              prints the ones that satisfy the condition to the screen
+          RETURNS:           bool
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           bool compareSelectOne(std::string selectAtt1, std::string selectAtt2, std::string whereAtt, std::string operater, std::string compareValue) {
           
                bool selected1 = false, selected2 = false;
@@ -361,6 +478,13 @@ class Table : public Attribute {
           
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          updateAttValue()
+          DESCRIPTION:       Compares different attribute values with each other and updates
+                              the values accordingly
+          RETURNS:           bool
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           bool updateAttValue(std::string whereAttName, std::string setAttName, std::string oldValue, std::string newValue) {
 
                bool success;
@@ -421,6 +545,12 @@ class Table : public Attribute {
 
           }
 
+          /* -----------------------------------------------------------------------------
+          FUNCTION:          deleteValues()
+          DESCRIPTION:       Removes values from the specified attribute
+          RETURNS:           bool
+          NOTES:             
+          ------------------------------------------------------------------------------- */
           bool deleteValues(std::string attName, std::string valToDelete) {
 
                bool deleted = false;
@@ -449,52 +579,9 @@ class Table : public Attribute {
 
           }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          // friend std::ostream& operator << (std::ostream &stream, Table &table) {
-          
-
-          //      for (int i = 0; i < table.attributes.size(); i++) {
-                    
-          //           stream << table.attributes[i].displayAttribute();
-          //      }
-          // }
-
           
 
 };
-
-
-
-
-
-
-
-
 
 
 #endif

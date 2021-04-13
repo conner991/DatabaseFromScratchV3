@@ -9,10 +9,10 @@ MODIFICATION HISTORY:
 Author             Date               Version
 ---------------    ----------         --------------
 Conner Fissell     04-07-2021         Initial Set up
-Conner Fissell     04-07-2021         
-Conner Fissell     04-07-2021         
-Conner Fissell     04-07-2021         
-Conner Fissell     04-07-2021
+Conner Fissell     04-09-2021         Updated Parser
+Conner Fissell     04-10-2021         Worked on Selects
+Conner Fissell     04-11-2021         Finished Selects
+Conner Fissell     04-12-2021         Turned in project
 ----------------------------------------------------------------------------- */
 #include "Table.h"
 
@@ -1214,31 +1214,31 @@ void select(std::vector<std::string> &wordVector, std::vector<Database> &databas
 
                     // Collect our tables aliases by going through all of the words and 
                     // finding our table names and then assigning aliases to them
-                    for (int j = 0; j < wordVector.size(); j++) {
+                    // for (int j = 0; j < wordVector.size(); j++) {
 
-                         if (wordVector[j] == "Employee") {
+                    //      if (wordVector[j] == "Employee") {
 
-                              // Find alias name
-                              alias = wordVector[j + 1];
-                              // Add alias name to corresponding table (Employee)
-                              databaseVector[i].tables[0].setAliasName(alias);
-                              // Add alias name to vector
-                              tableAliases.push_back(alias);
+                    //           // Find alias name
+                    //           alias = wordVector[j + 1];
+                    //           // Add alias name to corresponding table (Employee)
+                    //           databaseVector[i].tables[0].setAliasName(alias);
+                    //           // Add alias name to vector
+                    //           tableAliases.push_back(alias);
 
-                         }
+                    //      }
 
-                         else if (wordVector[j] == "Sales") {
+                    //      else if (wordVector[j] == "Sales") {
 
-                              // Find alias name
-                              alias = wordVector[j + 1];
-                              // Add alias name to corresponding table (Sales)
-                              databaseVector[i].tables[1].setAliasName(alias);
-                              // Add alias name to vector
-                              tableAliases.push_back(alias);
+                    //           // Find alias name
+                    //           alias = wordVector[j + 1];
+                    //           // Add alias name to corresponding table (Sales)
+                    //           databaseVector[i].tables[1].setAliasName(alias);
+                    //           // Add alias name to vector
+                    //           tableAliases.push_back(alias);
 
-                         }
+                    //      }
 
-                    }
+                    // }
  
                     // Figure out what types of Select statements we have here
                     for (int j = 0; j < wordVector.size(); j++) {
@@ -1252,8 +1252,8 @@ void select(std::vector<std::string> &wordVector, std::vector<Database> &databas
                               
                               if (operater == "=") {   
 
-                                   size_t found1= wordVector[8].find(".id");
-                                   size_t found2= wordVector[10].find(".employeeID");
+                                   size_t found1 = wordVector[8].find(".id");
+                                   size_t found2 = wordVector[10].find(".employeeID");
 
 
                                    // If the two different attributes from two different tables are present
